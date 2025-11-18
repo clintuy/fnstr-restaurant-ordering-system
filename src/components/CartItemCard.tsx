@@ -12,13 +12,19 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import { type CartItem } from "../redux/cartSlice";
+import { type CartItem, updateQty } from "../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
 interface CartItemCardProps {
   item: CartItem;
 }
 
 const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
+  const dispatch = useDispatch();
+  const handleQuantityChange = (qty: number) => {
+    if (qty < 1) return;
+    dispatch(updateQty({ item, quantity: qty }));
+  };
   return (
     <IonCard className="cart-item-card">
       <IonCardHeader>
@@ -43,7 +49,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
             {/* Price & Total */}
             <IonCol size="12" sizeMd="4">
               <p>Price: ₱{item.price.toFixed(2)}</p>
-              <p>Total: ₱{(item.price * item.quantity).toFixed(2)}</p>
+              <p>Total Price: ₱{(item.price * item.quantity).toFixed(2)}</p>
             </IonCol>
 
             {/* Quantity controls */}
@@ -59,7 +65,11 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
                 >
                   <IonLabel>Qty</IonLabel>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <IonButton size="small" disabled={item.quantity <= 1}>
+                    <IonButton
+                      size="small"
+                      disabled={item.quantity <= 1}
+                      onClick={() => handleQuantityChange(item.quantity - 1)}
+                    >
                       -
                     </IonButton>
 
@@ -68,6 +78,12 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
                       type="number"
                       min={1}
                       value={item.quantity}
+                      onIonChange={(e) => {
+                        const val = e.detail.value;
+                        if (!val) return;
+                        const num = Number(val);
+                        if (!isNaN(num) && num >= 1) handleQuantityChange(num);
+                      }}
                       style={{
                         width: "50px",
                         textAlign: "center",
@@ -75,7 +91,12 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
                       }}
                     />
 
-                    <IonButton size="small">+</IonButton>
+                    <IonButton
+                      size="small"
+                      onClick={() => handleQuantityChange(item.quantity + 1)}
+                    >
+                      +
+                    </IonButton>
                   </div>
                 </div>
               </IonItem>

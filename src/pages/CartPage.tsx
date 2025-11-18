@@ -43,7 +43,7 @@ export default function CartPage() {
 
             <IonCard>
               <IonCardContent>
-                <h2>Subtotal: ₱{subtotal.toFixed(2)}</h2>
+                <h2>Total Amount: ₱{subtotal.toFixed(2)}</h2>
                 <IonButton
                   data-cy="checkout-button"
                   expand="block"
