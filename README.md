@@ -35,8 +35,8 @@ ionic serve
 
 ## Project Structure
 
-src/ – Application source code
-cypress/ – End-to-end tests
-public/ – Static files
-package.json – Project dependencies and scripts
+- src/ – Application source code
+- cypress/ – End-to-end tests
+- public/ – Static files
+- package.json – Project dependencies and scripts
 
