@@ -6,6 +6,9 @@ import {
   IonButton,
   IonBadge,
 } from "@ionic/react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
+import type { AppDispatch } from "../redux/store";
 
 interface Props {
   id: string;
@@ -14,7 +17,8 @@ interface Props {
   category: string;
 }
 
-export default function MenuItemCard({ name, price, category }: Props) {
+export default function MenuItemCard({ id, name, price, category }: Props) {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <IonCard className="menu-card">
       <IonCardHeader>
@@ -24,7 +28,15 @@ export default function MenuItemCard({ name, price, category }: Props) {
       <IonCardContent>
         <IonBadge color="secondary">{category}</IonBadge>
         <p>₱{price.toFixed(2)}</p>
-        <IonButton expand="block" color="primary">
+        <IonButton
+          expand="block"
+          color="primary"
+          onClick={() =>
+            dispatch(
+              addToCart({ id, name, price, category, quantity: 1, addons: [] })
+            )
+          }
+        >
           Add to Cart
         </IonButton>
       </IonCardContent>

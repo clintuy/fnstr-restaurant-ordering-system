@@ -8,8 +8,10 @@ import {
   IonTabButton,
   IonTabs,
   setupIonicReact,
+  IonBadge,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { useSelector } from "react-redux";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -44,10 +46,14 @@ import { Route, Redirect } from "react-router";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckOutPage";
 import MenuPage from "./pages/MenuPage";
+import type { RootState } from "./redux/store";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  const totalQuantity = useSelector((state: RootState) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  );
   return (
     <IonApp>
       <IonReactRouter>
@@ -69,6 +75,9 @@ const App: React.FC = () => {
             </IonTabButton>
 
             <IonTabButton tab="cart" href="/cart">
+              {totalQuantity > 0 && (
+                <IonBadge color="secondary">{totalQuantity}</IonBadge>
+              )}
               <IonIcon icon={cart} />
               <IonLabel>Cart</IonLabel>
             </IonTabButton>
