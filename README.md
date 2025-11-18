@@ -14,7 +14,7 @@ nvm install 20
 nvm use 20
 ```
 
-
+---
 ## Getting Started
 
 - React JS
@@ -32,14 +32,14 @@ Run the app:
 ```bash
 ionic serve
 ```
-
+---
 ## Project Structure
 
 - src/ – Application source code
 - cypress/ – End-to-end tests
 - public/ – Static files
 - package.json – Project dependencies and scripts
-
+---
 ## Unit testing guide
 
 - Make sure the port you are using matches the one in cypress.config.ts
@@ -60,7 +60,7 @@ Sometimes the testing will fail due to timeout of the – https://world.openfood
 ```bash
 npm run test.e2e
 ```
-
+---
 ## Limitations
 
 **Data/API**
