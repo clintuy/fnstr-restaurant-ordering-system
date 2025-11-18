@@ -1,5 +1,14 @@
-import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { restaurant, cart, receipt } from "ionicons/icons";
+import {
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  setupIonicReact,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 /* Core CSS required for Ionic components to work properly */
@@ -31,15 +40,48 @@ import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import { Route, Redirect } from "react-router";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckOutPage";
+import MenuPage from "./pages/MenuPage";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <div>Test</div>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            {/* v5 Route syntax */}
+            <Route exact path="/" component={MenuPage} />
+            <Route exact path="/cart" component={CartPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+
+            {/* Optional: redirect unknown paths */}
+            <Route render={() => <Redirect to="/" />} />
+          </IonRouterOutlet>
+
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="menu" href="/">
+              <IonIcon icon={restaurant} />
+              <IonLabel>Menu</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="cart" href="/cart">
+              <IonIcon icon={cart} />
+              <IonLabel>Cart</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="checkout" href="/checkout">
+              <IonIcon icon={receipt} />
+              <IonLabel>Checkout</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
