@@ -55,8 +55,41 @@ export default defineConfig({
   },
 });
 ```
-To run unit test
+Sometimes the testing will fail due to timeout of the – https://world.openfoodfacts.org/data
+
 ```bash
 npm run test.e2e
 ```
+
+## Limitations
+
+**Data/API**
+- No real backend → cannot handle multiple simultaneous users.
+- Limited menu dataset -> large-scale menu or dynamic updates are not supported.
+- API call delays might cause slight lag in loading menu items; currently handled with simple loading states or timeouts.
+
+**Cart and Add-ons**
+- Add-ons are limited to predefined options; cannot dynamically fetch new add-ons from a serve
+- Add-ons prices are static; any price changes require code changes.
+- Cart data is stored in Redux only, not persisted in local storage or backend, so refreshing the page resets the cart.
+- Complex rules like discounts, promotions, or stock tracking are not implemented.
+
+**Checkout**
+- Service charge is a fixed 10%; no configurable tax rates or dynamic discounts.
+- Receipts are generated locally; no PDF export, printing, or backend storage.
+- No integration with payment gateways; checkout is simulated only.
+
+**UI / Responsiveness**
+- If Ionic is not used, the UI may be basic and desktop-oriented.
+- Mobile responsiveness is limited unless Ionic Grid or CSS media queries are applied.
+- Accessibility features (keyboard navigation, screen readers) are minimal or not fully tested.
+
+**Testing**
+- Only minimal unit and component tests are included.
+
+**Performance**
+- State updates are handled via Redux; for a large menu with many items, rerenders may cause slight performance degradation.
+
+**Security**
+- No authentication or user accounts; anyone can add/remove items.
 
