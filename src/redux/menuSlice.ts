@@ -41,6 +41,26 @@ const menuSlice = createSlice({
       const results = fuse.search(q);
       state.filtered = results.map((r) => r.item);
     },
+    /* Sort menu by name, category, or price */
+    sort(state, action: PayloadAction<"name" | "category" | "price">) {
+      const key = action.payload;
+      state.filtered = [...state.filtered].sort((a, b) => {
+        const aVal = a[key];
+        const bVal = b[key];
+
+        // Number comparison for price
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          return aVal - bVal;
+        }
+
+        // String comparison for name/category
+        if (typeof aVal === "string" && typeof bVal === "string") {
+          return aVal.localeCompare(bVal);
+        }
+
+        return 0; // fallback for undefined or mismatched types
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,5 +84,5 @@ const menuSlice = createSlice({
       });
   },
 });
-export const { search } = menuSlice.actions;
+export const { search, sort } = menuSlice.actions;
 export default menuSlice.reducer;

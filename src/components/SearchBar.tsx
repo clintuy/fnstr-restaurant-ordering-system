@@ -8,7 +8,7 @@ import {
 } from "@ionic/react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { search } from "../redux/menuSlice";
+import { search, sort } from "../redux/menuSlice";
 import { text, list, cash } from "ionicons/icons";
 
 export default function SearchBar() {
@@ -18,6 +18,11 @@ export default function SearchBar() {
   const handleSearch = (value: string) => {
     setQuery(value);
     dispatch(search(value));
+  };
+
+  // Handle sorting
+  const handleSort = (key: "name" | "category" | "price") => {
+    dispatch(sort(key));
   };
 
   return (
@@ -36,17 +41,17 @@ export default function SearchBar() {
 
       {/* Sort Buttons */}
       <IonRow className="ion-align-items-center">
-        <IonButton color="medium">
+        <IonButton color="medium" onClick={() => handleSort("name")}>
           <IonIcon slot="start" icon={text} />
           Name
         </IonButton>
 
-        <IonButton color="medium">
+        <IonButton color="medium" onClick={() => handleSort("category")}>
           <IonIcon slot="start" icon={list} />
           Category
         </IonButton>
 
-        <IonButton color="medium">
+        <IonButton color="medium" onClick={() => handleSort("price")}>
           <IonIcon slot="start" icon={cash} />
           Price
         </IonButton>
