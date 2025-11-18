@@ -40,3 +40,23 @@ ionic serve
 - public/ – Static files
 - package.json – Project dependencies and scripts
 
+## Unit testing guide
+
+- Make sure the port you are using matches the one in cypress.config.ts
+- Example configuration:
+```bash
+export default defineConfig({
+  e2e: {
+    baseUrl: "http://localhost:8100",
+    specPattern: "cypress/e2e/**/*.spec.ts",
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+    },
+  },
+});
+```
+To run unit test
+```bash
+npm run test.e2e
+```
+
