@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   IonContent,
   IonPage,
@@ -10,14 +12,15 @@ import {
   IonCol,
 } from "@ionic/react";
 import MenuItemCard from "../components/MenuItemCard";
+import { loadMenu } from "../redux/menuSlice";
+import type { RootState, AppDispatch } from "../redux/store";
 
 export default function CheckoutPage() {
-  const sampleItem = {
-    id: "1",
-    name: "Sample Item",
-    price: 99.99,
-    category: "Sample Category",
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const { filtered, status } = useSelector((s: RootState) => s.menu);
+  useEffect(() => {
+    dispatch(loadMenu());
+  }, [dispatch]);
 
   return (
     <IonPage>
@@ -34,12 +37,17 @@ export default function CheckoutPage() {
           debounce={300}
         />
 
+        {/* Loading */}
+        {status === "loading" && <p>Loading menu...</p>}
+
         {/* Menu Grid */}
         <IonGrid>
           <IonRow>
-            <IonCol size="12" size-md="6" size-lg="4">
-              <MenuItemCard {...sampleItem} />
-            </IonCol>
+            {filtered.map((item) => (
+              <IonCol size="12" size-md="6" size-lg="4" key={item.id}>
+                <MenuItemCard {...item} />
+              </IonCol>
+            ))}
           </IonRow>
         </IonGrid>
       </IonContent>
