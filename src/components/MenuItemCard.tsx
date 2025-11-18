@@ -14,7 +14,7 @@ interface Props {
   category: string;
 }
 
-export default function MenuItemCard({ id, name, price, category }: Props) {
+export default function MenuItemCard({ name, price, category }: Props) {
   return (
     <IonCard className="menu-card">
       <IonCardHeader>
@@ -23,9 +23,7 @@ export default function MenuItemCard({ id, name, price, category }: Props) {
 
       <IonCardContent>
         <IonBadge color="secondary">{category}</IonBadge>
-        <p>
-          ₱{price.toFixed(2)} {id}
-        </p>
+        <p>₱{price.toFixed(2)}</p>
         <IonButton expand="block" color="primary">
           Add to Cart
         </IonButton>

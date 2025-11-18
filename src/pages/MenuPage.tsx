@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   IonContent,
   IonPage,
-  IonSearchbar,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -12,6 +11,7 @@ import {
   IonCol,
 } from "@ionic/react";
 import MenuItemCard from "../components/MenuItemCard";
+import SearchBar from "../components/SearchBar";
 import { loadMenu } from "../redux/menuSlice";
 import type { RootState, AppDispatch } from "../redux/store";
 
@@ -31,12 +31,7 @@ export default function CheckoutPage() {
       </IonHeader>
       <IonContent className="ion-padding">
         {/* Search Bar */}
-        <IonSearchbar
-          className="max-w-[300px] mx-auto"
-          placeholder="Search menu..."
-          debounce={300}
-        />
-
+        <SearchBar />
         {/* Loading */}
         {status === "loading" && <p>Loading menu...</p>}
 

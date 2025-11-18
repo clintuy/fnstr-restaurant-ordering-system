@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Fuse from "fuse.js";
 import { fetchMenu, MenuItem } from "../api/menuApi";
 
 /* Async thunk to load menu from API */
@@ -23,7 +24,24 @@ const initialState: MenuState = {
 const menuSlice = createSlice({
   name: "menu",
   initialState,
-  reducers: {},
+  reducers: {
+    search(state, action: PayloadAction<string>) {
+      const q = action.payload.trim();
+      if (!q) {
+        state.filtered = state.items;
+        return;
+      }
+
+      const options: import("fuse.js").IFuseOptions<MenuItem> = {
+        keys: ["name", "category", "price"],
+        threshold: 0.4,
+      };
+
+      const fuse = new Fuse<MenuItem>(state.items, options);
+      const results = fuse.search(q);
+      state.filtered = results.map((r) => r.item);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadMenu.pending, (state) => {
@@ -46,4 +64,5 @@ const menuSlice = createSlice({
       });
   },
 });
+export const { search } = menuSlice.actions;
 export default menuSlice.reducer;
