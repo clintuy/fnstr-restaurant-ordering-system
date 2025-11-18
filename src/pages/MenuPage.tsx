@@ -32,6 +32,7 @@ export default function CheckoutPage() {
       <IonContent className="ion-padding">
         {/* Search Bar */}
         <SearchBar />
+
         {/* Loading */}
         {status === "loading" && <p>Loading menu...</p>}
 
