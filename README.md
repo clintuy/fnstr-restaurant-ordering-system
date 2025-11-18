@@ -10,8 +10,10 @@ This is a restaurant ordering system built with Ionic and React.
   Example to use nvm:
 
 ```bash
-- nvm install 20
-- nvm use 20
+nvm install 20
+nvm use 20
+```
+
 
 ## Getting Started
 
@@ -22,13 +24,14 @@ This is a restaurant ordering system built with Ionic and React.
 First, install the dependecies;
 
 ```bash
-- npm install
+npm install
+```
 
 Run the app:
 
 ```bash
-- ionic serve
-
+ionic serve
+```
 
 ## Project Structure
 
@@ -37,4 +40,5 @@ Run the app:
 - cypress/ – End-to-end tests
 - public/ – Static files
 - package.json – Project dependencies and scripts
+```
 
