@@ -10,7 +10,7 @@ export default function CheckoutPage() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>My Checkout</IonTitle>
+          <IonTitle>Checkout</IonTitle>
         </IonToolbar>
       </IonHeader>
 

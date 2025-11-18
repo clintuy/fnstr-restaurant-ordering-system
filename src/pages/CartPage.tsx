@@ -10,7 +10,7 @@ export default function CartPage() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>My Cart</IonTitle>
+          <IonTitle>Cart</IonTitle>
         </IonToolbar>
       </IonHeader>
 
