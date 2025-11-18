@@ -29,6 +29,7 @@ export default function MenuItemCard({ id, name, price, category }: Props) {
         <IonBadge color="secondary">{category}</IonBadge>
         <p>₱{price.toFixed(2)}</p>
         <IonButton
+          data-cy="add-to-cart"
           expand="block"
           color="primary"
           onClick={() =>
