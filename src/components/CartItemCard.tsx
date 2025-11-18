@@ -12,7 +12,7 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import { type CartItem, updateQty } from "../redux/cartSlice";
+import { type CartItem, updateQty, removeItem } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 
 interface CartItemCardProps {
@@ -104,7 +104,12 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ item }) => {
 
             {/* Remove button */}
             <IonCol size="12" sizeMd="4">
-              <IonButton data-cy="remove-item" color="danger" expand="block">
+              <IonButton
+                data-cy="remove-item"
+                color="danger"
+                expand="block"
+                onClick={() => dispatch(removeItem(item))}
+              >
                 Remove
               </IonButton>
             </IonCol>
